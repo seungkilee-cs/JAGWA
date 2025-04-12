@@ -10,4 +10,11 @@ I'm a South Korean national, but I have spent my entire adult life in the United
 
 I want to make something that looks like iPadOS app, but more intuitive and better navigating for all parts I need (UV, Air Quality, Temperature, Precipitations)
 
-##
+## Rough Design
+
+Using Typescript for Frontend -> I can just use Typescript OR try out Svelte with JS OR TS with SOLID, OR if I really feel lazy just do React+Vite+TS
+Deciding between using Elixir + Pheonix backend vs Serverless with Full Stack Typescript
+
+-> Serverless would be okay and I would be using single langauge
+-> Elixir backend would require me to host a server on my NAS
+-> I can just do both and see how they differ
