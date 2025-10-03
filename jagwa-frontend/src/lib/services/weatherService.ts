@@ -1,5 +1,3 @@
-// Core weather data fetching and conversion logic
-
 export interface WeatherData {
   temperature: number;
   feelsLike: number;
@@ -8,6 +6,19 @@ export interface WeatherData {
   description: string;
   icon: string;
   timestamp: number;
+  coord?: {
+    lat: number;
+    lon: number;
+  };
+}
+
+export interface HourlyForecast {
+  time: number;
+  precipitation: number;
+  rain: number;
+  snow: number;
+  temperature: number;
+  icon: string;
 }
 
 class WeatherService {
@@ -33,7 +44,8 @@ class WeatherService {
         windSpeed: data.wind.speed,
         description: data.weather[0].description,
         icon: data.weather[0].icon,
-        timestamp: Date.now()
+        timestamp: Date.now(),
+        coord: data.coord ? { lat: data.coord.lat, lon: data.coord.lon } : undefined
       };
     } catch (error) {
       console.error('Error fetching weather data:', error);
@@ -41,13 +53,49 @@ class WeatherService {
     }
   }
 
-  convertCtoF(celsius: number): number {
-    return (celsius * 9/5) + 32;
+  async getHourlyForecast(location: string): Promise<HourlyForecast[]> {
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&appid=${this.apiKey}&units=metric`
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch forecast data');
+      }
+
+      const data = await response.json();
+      
+      return data.list.map((item: any) => ({
+        time: item.dt * 1000,
+        precipitation: item.pop * 100,
+        rain: item.rain ? item.rain['3h'] : 0,
+        snow: item.snow ? item.snow['3h'] : 0,
+        temperature: item.main.temp,
+        icon: item.weather[0].icon
+      }));
+    } catch (error) {
+      console.error('Error fetching forecast data:', error);
+      throw error;
+    }
   }
 
-  convertFtoC(fahrenheit: number): number {
-    return (fahrenheit - 32) * 5/9;
+  async getAQI(latitude: number, longitude: number): Promise<number> {
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${latitude}&lon=${longitude}&appid=${this.apiKey}`
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch AQI data');
+      }
+
+      const data = await response.json();
+      return data.list[0].main.aqi;
+    } catch (error) {
+      console.error('Error fetching AQI data:', error);
+      throw error;
+    }
   }
 }
 
-export const weatherService = new WeatherService();
+export default new WeatherService();

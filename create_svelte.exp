@@ -1,0 +1,13 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+spawn npx sv create jagwa-frontend
+
+expect "Which template would you like?"
+send "1\r"
+
+expect "Add type checking with TypeScript?"
+send "1\r"
+
+expect eof

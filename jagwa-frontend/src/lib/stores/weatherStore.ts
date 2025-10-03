@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { WeatherData } from '../services/weatherService';
+import type { WeatherData, HourlyForecast } from '../services/weatherService';
 
 export const weatherData = writable<WeatherData | null>(null);
 export const error = writable<string | null>(null);
