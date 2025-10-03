@@ -8,19 +8,18 @@
 
 {#if currentWeather}
   <div class="weather-display">
+    <img
+      class="weather-icon"
+      src={`https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
+      alt={currentWeather.description}
+    />
     <div class="temperature">
-      {#if currentUnit === 'celsius'}
-        {Math.round(currentWeather.temperature)}°C
-      {:else}
-        {Math.round((currentWeather.temperature * 9/5) + 32)}°F
-      {/if}
+      {formatTemp(currentWeather.temperature, currentUnit)}
     </div>
     
     <div class="details">
       <div class="feels-like">
-        Feels like: {currentUnit === 'celsius' 
-          ? Math.round(currentWeather.feelsLike) 
-          : Math.round((currentWeather.feelsLike * 9/5) + 32)}°{currentUnit === 'celsius' ? 'C' : 'F'}
+        Feels like: {formatTemp(currentWeather.feelsLike, currentUnit)}
       </div>
       <div class="humidity">Humidity: {currentWeather.humidity}%</div>
       <div class="wind">Wind: {currentWeather.windSpeed} m/s</div>
@@ -38,6 +37,15 @@
     border-radius: 1rem;
     max-width: 400px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .weather-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: -1rem;
   }
   
   .temperature {

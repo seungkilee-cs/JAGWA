@@ -5,6 +5,9 @@
   import LocationSearch from './components/LocationSearch.svelte';
   import WeatherDisplay from './components/WeatherDisplay.svelte';
   import UnitToggle from './components/UnitToggle.svelte';
+  import UvIndex from './components/UvIndex.svelte';
+  import Precipitation from './components/Precipitation.svelte';
+  import AirQuality from './components/AirQuality.svelte';
   
   async function handleSearch(location: string) {
     try {
@@ -41,6 +44,12 @@
   {/if}
   
   <WeatherDisplay />
+
+  <div class="additional-metrics">
+    <UvIndex />
+    <Precipitation />
+    <AirQuality />
+  </div>
 </main>
 
 <style>
@@ -95,5 +104,12 @@
   .error {
     background: rgba(255, 99, 71, 0.2);
     color: #ffcccb;
+  }
+
+  .additional-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
   }
 </style>

@@ -8,32 +8,62 @@ export interface WeatherData {
   description: string;
   icon: string;
   timestamp: number;
+  uvi: number;
+  precipitation: number;
+  aqi: number;
+}
+
+interface Coordinates {
+  lat: number;
+  lon: number;
 }
 
 class WeatherService {
   private apiKey: string = import.meta.env.VITE_WEATHER_API_KEY || '';
-  private baseUrl: string = 'https://api.openweathermap.org/data/2.5/weather';
+  private baseUrl: string = 'https://api.openweathermap.org/data/2.5';
+
+  private async getCoordinates(location: string): Promise<Coordinates> {
+    const response = await fetch(
+      `${this.baseUrl}/weather?q=${encodeURIComponent(location)}&appid=${this.apiKey}`
+    );
+    if (!response.ok) {
+      throw new Error('Failed to fetch coordinates');
+    }
+    const data = await response.json();
+    return { lat: data.coord.lat, lon: data.coord.lon };
+  }
 
   async getCurrentWeather(location: string): Promise<WeatherData> {
     try {
-      const response = await fetch(
-        `${this.baseUrl}?q=${encodeURIComponent(location)}&appid=${this.apiKey}&units=metric`
-      );
-      
-      if (!response.ok) {
+      const { lat, lon } = await this.getCoordinates(location);
+
+      const [oneCallResponse, airPollutionResponse] = await Promise.all([
+        fetch(
+          `${this.baseUrl}/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&appid=${this.apiKey}&units=metric`
+        ),
+        fetch(
+          `${this.baseUrl}/air_pollution?lat=${lat}&lon=${lon}&appid=${this.apiKey}`
+        ),
+      ]);
+
+      if (!oneCallResponse.ok || !airPollutionResponse.ok) {
         throw new Error('Failed to fetch weather data');
       }
 
-      const data = await response.json();
+      const oneCallData = await oneCallResponse.json();
+      const airPollutionData = await airPollutionResponse.json();
       
       return {
-        temperature: data.main.temp,
-        feelsLike: data.main.feels_like,
-        humidity: data.main.humidity,
-        windSpeed: data.wind.speed,
-        description: data.weather[0].description,
-        icon: data.weather[0].icon,
-        timestamp: Date.now()
+        temperature: oneCallData.current.temp,
+        feelsLike: oneCallData.current.feels_like,
+        humidity: oneCallData.current.humidity,
+        windSpeed: oneCallData.current.wind_speed,
+        description: oneCallData.current.weather[0].description,
+        icon: oneCallData.current.weather[0].icon,
+        uvi: oneCallData.current.uvi,
+        precipitation: oneCallData.current.rain?.['1h'] || 0,
+        aqi: airPollutionData.list[0].main.aqi,
+        timestamp: Date.now(),
       };
     } catch (error) {
       console.error('Error fetching weather data:', error);
