@@ -130,128 +130,122 @@
 
 <style>
   .app {
-    padding: 2.5rem clamp(1rem, 4vw, 3.5rem) 4.5rem;
+    padding: 0;
     min-height: 100vh;
-    background: radial-gradient(circle at 10% 20%, rgba(148, 163, 184, 0.18), transparent 55%),
-      radial-gradient(circle at 80% 10%, rgba(59, 130, 246, 0.2), transparent 60%),
-      linear-gradient(180deg, #020617 0%, #0f172a 45%, #1f2937 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
+    overflow-x: hidden;
+    font-size: 14px;
   }
 
   .app__header {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
 
   .content {
     display: flex;
     flex-direction: column;
-    gap: 2.25rem;
+    gap: 0;
+    padding: 0;
   }
 
   .metrics {
     display: grid;
-    gap: 1.25rem;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .daily-forecast {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
   }
 
   .daily-forecast h2 {
-    margin: 0;
-    font-size: 1.35rem;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
-    color: rgba(226, 232, 240, 0.92);
+    letter-spacing: 1px;
   }
 
   .charts {
     display: grid;
-    gap: 2rem;
+    gap: 8px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .chart-card {
-    position: relative;
-    border-radius: 1.5rem;
-    padding: 1.6rem;
-    background: linear-gradient(140deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.22));
-    border: 1px solid rgba(148, 163, 184, 0.12);
-    box-shadow: 0 24px 38px rgba(2, 6, 23, 0.45);
-    backdrop-filter: blur(18px);
-    overflow: hidden;
-  }
-
-  .chart-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(circle at 25% 20%, rgba(96, 165, 250, 0.25), transparent 55%);
-    opacity: 0.8;
-    pointer-events: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .chart-card h2 {
-    position: relative;
-    margin: 0 0 0.85rem;
-    font-size: 1.2rem;
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: rgba(226, 232, 240, 0.9);
-    letter-spacing: 0.03em;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
   .banner {
-    padding: 1rem 1.5rem;
-    border-radius: 0.85rem;
+    padding: 0.75rem 1rem;
     text-align: center;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.08);
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
     color: white;
-    border: 1px solid transparent;
-    margin-bottom: 1rem;
+    border: none;
+    margin: 8px 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
   }
 
   .banner--error {
-    background: rgba(220, 38, 38, 0.25);
-    border-color: rgba(248, 113, 113, 0.4);
+    background: rgba(239, 68, 68, 0.2);
   }
 
   .banner--loading {
-    background: rgba(59, 130, 246, 0.2);
-    border-color: rgba(191, 219, 254, 0.35);
+    background: rgba(255, 255, 255, 0.15);
   }
 
   .banner--info {
-    background: rgba(110, 231, 183, 0.18);
-    border-color: rgba(134, 239, 172, 0.35);
+    background: rgba(255, 255, 255, 0.1);
   }
 
-  @media (min-width: 900px) {
+  @media (min-width: 768px) {
+    .app__header {
+      padding: 1.25rem 2rem;
+    }
+    
+    .metrics {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 1.5rem;
+    }
+    
     .charts {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 2.25rem;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 1.5rem;
     }
-  }
-
-  @media (max-width: 640px) {
-    .app {
-      padding: 2rem 1.25rem 3rem;
-    }
-
-    .content {
-      gap: 1.75rem;
-    }
-
-    .charts {
-      gap: 1.5rem;
+    
+    .daily-forecast {
+      padding: 1.5rem;
     }
   }
 </style>

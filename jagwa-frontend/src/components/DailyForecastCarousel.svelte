@@ -205,92 +205,104 @@
   }
 
   .carousel {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(160px, 1fr);
-    gap: 0.85rem;
+    display: flex;
+    gap: 4px;
     overflow-x: auto;
-    padding-bottom: 0.75rem;
-    scrollbar-width: thin;
-    scroll-snap-type: x mandatory;
-    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.5rem 0;
   }
 
   .carousel::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .carousel::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 999px;
+    display: none;
   }
 
   .day-card {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid transparent;
-    border-radius: 1rem;
-    padding: 0.85rem 1.1rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem 0.5rem;
+    min-width: 70px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    color: rgba(255, 255, 255, 0.95);
-    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
-    scroll-snap-align: center;
+    align-items: center;
+    gap: 0.375rem;
+    color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
   }
 
   .day-card:hover,
   .day-card:focus {
-    transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.25);
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-1px);
     outline: none;
   }
 
   .day-card--active {
-    border-color: rgba(59, 130, 246, 0.7);
-    box-shadow: 0 16px 32px rgba(59, 130, 246, 0.28);
-    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
   }
 
   .day-card__header {
-    display: flex;
-    justify-content: space-between;
-    font-weight: 600;
+    text-align: center;
+  }
+
+  .day-card__weekday {
+    font-size: 0.7rem;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  .day-card__date {
+    font-size: 0.6rem;
+    opacity: 0.6;
   }
 
   .day-card__temps {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.25rem;
-    font-weight: 700;
+    text-align: center;
+  }
+
+  .temp--max {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
   }
 
   .temp--min {
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.75rem;
+    opacity: 0.6;
+    display: block;
   }
 
   .day-card__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    font-size: 0.9rem;
+    text-align: center;
   }
 
   .day-card__pop {
+    font-size: 0.65rem;
     color: rgba(96, 165, 250, 0.9);
-    font-weight: 600;
+    font-weight: 500;
+  }
+
+  .day-card__summary {
+    font-size: 0.6rem;
+    opacity: 0.7;
+    display: none;
   }
 
   .details {
-    margin-top: 1.5rem;
+    margin-top: 0.75rem;
     background: rgba(255, 255, 255, 0.08);
-    border-radius: 1rem;
-    padding: 1.5rem;
+    backdrop-filter: blur(20px);
+    padding: 1rem;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.35);
-    backdrop-filter: blur(18px);
+    gap: 0.75rem;
   }
 
   .details__header {
@@ -319,20 +331,22 @@
 
   .details__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 0.75rem;
   }
 
   .details__grid h4 {
-    margin: 0 0 0.25rem;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 0.125rem;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .details__grid p {
     margin: 0;
-    font-size: 1.05rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
     color: rgba(255, 255, 255, 0.95);
   }
 

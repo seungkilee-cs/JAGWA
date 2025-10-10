@@ -29,92 +29,67 @@
       </button>
     {/if}
   </div>
-  <button on:click={handleSubmit} class="search__button">
-    Go
-  </button>
 </div>
 
 <style>
   .search {
-    display: flex;
-    gap: 0.75rem;
-    margin: 1.5rem auto 2.5rem;
-    max-width: 520px;
-    width: 100%;
-    align-items: center;
+    flex: 1;
+    max-width: 300px;
   }
 
   .search__field {
-    flex: 1;
     position: relative;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.85rem 1rem;
-    border-radius: 1.5rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.3);
-    backdrop-filter: blur(16px);
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .search__field:focus-within {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
   }
 
   .search__icon {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
   }
 
   .search__input {
     flex: 1;
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 1rem;
+    color: white;
+    font-size: 0.9rem;
     outline: none;
+    font-weight: 400;
   }
 
   .search__input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.5);
   }
 
   .search__clear {
     background: rgba(255, 255, 255, 0.15);
     border: none;
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    color: rgba(255, 255, 255, 0.85);
+    width: 18px;
+    height: 18px;
+    color: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     display: grid;
     place-items: center;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     line-height: 1;
+    transition: background 0.2s ease;
   }
 
-  .search__button {
-    padding: 0.85rem 1.5rem;
-    border-radius: 1.5rem;
-    border: none;
-    background: linear-gradient(120deg, rgba(59, 130, 246, 0.9), rgba(96, 165, 250, 0.8));
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 10px 24px rgba(59, 130, 246, 0.35);
-  }
-
-  .search__button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 28px rgba(59, 130, 246, 0.42);
-  }
-
-  @media (max-width: 520px) {
-    .search {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .search__button {
-      width: 100%;
-    }
+  .search__clear:hover {
+    background: rgba(255, 255, 255, 0.25);
   }
 </style>

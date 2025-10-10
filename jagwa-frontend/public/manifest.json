@@ -1,0 +1,16 @@
+{
+  "name": "JAGWA - Just Another Generic Weather App",
+  "short_name": "JAGWA",
+  "description": "A beautiful weather app with temperature conversion, air quality, UV index, and detailed forecasts",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

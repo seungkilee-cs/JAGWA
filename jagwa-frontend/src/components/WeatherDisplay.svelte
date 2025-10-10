@@ -22,32 +22,44 @@
 
 {#if currentWeather}
   <section class="hero" aria-label="Current weather overview">
-    <div class="hero__backdrop"></div>
-    <div class="hero__content">
-      <div class="hero__top">
-        <div class="hero__meta">
-          <span class="hero__label">Right now</span>
-          <span class="hero__timestamp">{timeFormatter.format(currentWeather.timestamp)}</span>
-        </div>
-        <div class="hero__icon">
-          <img src={`https://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`} alt={currentWeather.description} />
+    <div class="hero__location">
+      <div class="hero__city">Current Location</div>
+      <div class="hero__time">{timeFormatter.format(currentWeather.timestamp)}</div>
+    </div>
+    
+    <div class="hero__main">
+      <div class="hero__temperature">{displayTemp}°</div>
+      <div class="hero__icon">
+        <img src={`https://openweathermap.org/img/wn/${currentWeather.icon}@4x.png`} alt={currentWeather.description} />
+      </div>
+    </div>
+    
+    <div class="hero__description">{currentWeather.description}</div>
+    
+    <div class="hero__range">
+      H:{Math.round(currentWeather.temperature + 3)}° L:{Math.round(currentWeather.temperature - 5)}°
+    </div>
+
+    <div class="hero__details">
+      <div class="detail">
+        <div class="detail__icon">💧</div>
+        <div class="detail__content">
+          <div class="detail__label">Humidity</div>
+          <div class="detail__value">{currentWeather.humidity}%</div>
         </div>
       </div>
-      <div class="hero__temperature">{displayTemp}°</div>
-      <div class="hero__description">{currentWeather.description}</div>
-
-      <div class="hero__details">
-        <div>
-          <span class="detail__label">Feels like</span>
-          <span class="detail__value">{feelsLike}°</span>
+      <div class="detail">
+        <div class="detail__icon">🌡️</div>
+        <div class="detail__content">
+          <div class="detail__label">Feels like</div>
+          <div class="detail__value">{feelsLike}°</div>
         </div>
-        <div>
-          <span class="detail__label">Humidity</span>
-          <span class="detail__value">{currentWeather.humidity}%</span>
-        </div>
-        <div>
-          <span class="detail__label">Wind</span>
-          <span class="detail__value">{currentWeather.windSpeed.toFixed(1)} m/s</span>
+      </div>
+      <div class="detail">
+        <div class="detail__icon">💨</div>
+        <div class="detail__content">
+          <div class="detail__label">Wind</div>
+          <div class="detail__value">{currentWeather.windSpeed.toFixed(1)} m/s</div>
         </div>
       </div>
     </div>
@@ -56,120 +68,134 @@
 
 <style>
   .hero {
-    position: relative;
-    overflow: hidden;
-    border-radius: 1.75rem;
-    padding: 2.5rem;
-    display: flex;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(18px);
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-    min-height: 320px;
-    background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.55), transparent 60%),
-      radial-gradient(circle at 80% 30%, rgba(244, 114, 182, 0.45), transparent 55%),
-      linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 41, 59, 0.6));
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    color: white;
   }
 
-  .hero__backdrop {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(160deg, rgba(15, 23, 42, 0.6), rgba(17, 24, 39, 0.3));
-    backdrop-filter: blur(25px);
-    z-index: 0;
+  .hero__location {
+    margin-bottom: 0.75rem;
   }
 
-  .hero__content {
-    position: relative;
-    z-index: 1;
-    width: min(100%, 640px);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  .hero__city {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
   }
 
-  .hero__top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
-  .hero__meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .hero__label {
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
+  .hero__time {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.7;
   }
 
-  .hero__timestamp {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
-  .hero__icon img {
-    width: 88px;
-    height: 88px;
+  .hero__main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 1rem 0 0.75rem;
   }
 
   .hero__temperature {
-    font-size: clamp(4rem, 8vw, 6.5rem);
-    font-weight: 700;
-    line-height: 1;
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 200;
+    line-height: 0.9;
+  }
+
+  .hero__icon img {
+    width: clamp(60px, 12vw, 80px);
+    height: clamp(60px, 12vw, 80px);
   }
 
   .hero__description {
-    font-size: 1.4rem;
+    font-size: 1rem;
+    font-weight: 400;
     text-transform: capitalize;
-    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 0.5rem;
+    opacity: 0.9;
+  }
+
+  .hero__range {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
   }
 
   .hero__details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
   }
 
+  .detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .detail__icon {
+    font-size: 1.2rem;
+  }
+
+  .detail__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .detail__label {
-    display: block;
-    font-size: 0.85rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-    margin-bottom: 0.35rem;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-bottom: 0.125rem;
   }
 
   .detail__value {
-    font-size: 1.4rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
   }
 
   @media (max-width: 640px) {
-    .hero {
-      padding: 2rem;
-      border-radius: 1.5rem;
-    }
-
-    .hero__top {
+    .hero__main {
       flex-direction: column;
-      gap: 1rem;
-    }
-
-    .hero__icon img {
-      width: 72px;
-      height: 72px;
+      gap: 0.5rem;
     }
 
     .hero__details {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .detail {
+      flex-direction: row;
+      justify-content: flex-start;
+      text-align: left;
+    }
+
+    .detail__content {
+      align-items: flex-start;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding: 2rem;
+    }
+
+    .hero__details {
       gap: 1rem;
+    }
+
+    .detail {
+      padding: 0.75rem;
     }
   }
 </style>

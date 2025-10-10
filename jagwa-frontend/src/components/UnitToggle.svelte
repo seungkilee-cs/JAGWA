@@ -14,34 +14,38 @@
 
 <style>
   .unit-toggle {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 0.375rem 0.75rem;
     color: white;
-    font-size: 1rem;
+    font-size: 0.8rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    transition: background-color 0.2s;
+    gap: 0.25rem;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(20px);
   }
   
   .unit-toggle:hover {
     background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
   }
   
   .unit {
     opacity: 0.6;
     transition: opacity 0.2s;
+    font-weight: 500;
   }
   
   .unit.active {
     opacity: 1;
-    font-weight: bold;
+    font-weight: 600;
   }
   
   .divider {
-    opacity: 0.6;
+    opacity: 0.4;
+    font-weight: 300;
   }
 </style>

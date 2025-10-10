@@ -1,47 +1,92 @@
-# Svelte + TS + Vite
+# JAGWA - Just Another Generic Weather App
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+A beautiful, responsive weather application built with Svelte, TypeScript, and Vite. Features temperature unit conversion, air quality monitoring, UV index tracking, and detailed weather forecasts.
 
-## Recommended IDE Setup
+## Features
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+- 🌡️ **Temperature Conversion**: Seamlessly switch between Celsius and Fahrenheit
+- 🌍 **Global Weather**: Search for weather in any city worldwide
+- 📊 **Detailed Forecasts**: 5-day daily forecasts with hourly precipitation data
+- 🌬️ **Air Quality Index**: Real-time AQI monitoring with health recommendations
+- ☀️ **UV Index**: UV exposure levels with safety guidelines
+- 📱 **Responsive Design**: Beautiful iPad-like interface that works on all devices
+- 🎨 **Modern UI**: Glassmorphism design with smooth animations
 
-## Need an official Svelte framework?
+## Getting Started
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+### Prerequisites
 
-## Technical considerations
+- Node.js (v18 or higher)
+- npm or yarn
 
-**Why use this over SvelteKit?**
+### Installation
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd jagwa-frontend
+   ```
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+3. Set up your OpenWeatherMap API key:
+   - Get a free API key from [OpenWeatherMap](https://openweathermap.org/api)
+   - Copy `.env.example` to `.env`
+   - Add your API key to the `.env` file:
+     ```
+     VITE_WEATHER_API_KEY=your_api_key_here
+     ```
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+### Mock Data Mode
 
-**Why include `.vscode/extensions.json`?**
+The app includes comprehensive mock data for development and testing. If no API key is provided, the app will automatically use mock data featuring Seoul weather information.
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+## Available Scripts
 
-**Why enable `allowJs` in the TS template?**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run check` - Run TypeScript and Svelte checks
 
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
+## API Integration
 
-**Why is HMR not preserving my local component state?**
+The app uses the OpenWeatherMap API for:
+- Current weather conditions
+- 5-day/3-hour forecasts
+- Air Quality Index
+- UV Index data
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+## Architecture
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+- **Frontend**: Svelte 5 with TypeScript
+- **Build Tool**: Vite
+- **Charts**: Chart.js for precipitation visualization
+- **State Management**: Svelte stores
+- **Styling**: Component-scoped CSS with modern design patterns
 
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
-```
+## Browser Support
+
+- Chrome/Edge 88+
+- Firefox 85+
+- Safari 14+
+- Mobile browsers (iOS Safari, Chrome Mobile)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and checks
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

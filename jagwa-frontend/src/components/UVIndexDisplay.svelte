@@ -24,47 +24,63 @@
   $: currentLevel = getUVLevel(uvi);
 </script>
 
-<div class="uv-index" style={`border-color: ${currentLevel.color};`}>
-  <div class="uv-index__header">
-    <span class="uv-index__value" style={`color: ${currentLevel.color};`}>{uvi.toFixed(1)}</span>
-    <span class="uv-index__label">UV Index — {currentLevel.label}</span>
+<div class="uv-index">
+  <div class="uv-header">
+    <div class="uv-icon">☀️</div>
+    <div class="uv-title">UV Index</div>
   </div>
-  <p class="uv-index__description">{currentLevel.description}</p>
+  <div class="uv-value" style={`color: ${currentLevel.color};`}>{uvi.toFixed(1)}</div>
+  <div class="uv-label" style={`color: ${currentLevel.color};`}>{currentLevel.label}</div>
+  <p class="uv-description">{currentLevel.description}</p>
 </div>
 
 <style>
   .uv-index {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    padding: 1rem 1.25rem;
-    border-radius: 0.75rem;
-    border-width: 2px;
-    border-style: solid;
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 1rem;
+    color: white;
+    text-align: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .uv-index__header {
+  .uv-header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
-  .uv-index__value {
-    font-size: 2rem;
-    font-weight: 700;
-  }
-
-  .uv-index__label {
+  .uv-icon {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
   }
 
-  .uv-index__description {
+  .uv-title {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  .uv-value {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+
+  .uv-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .uv-description {
     margin: 0;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    opacity: 0.7;
+    line-height: 1.3;
   }
 </style>

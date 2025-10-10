@@ -12,17 +12,54 @@
   const currentLevel = aqiLevels.find(level => level.level === aqi) || aqiLevels[0];
 </script>
 
-<div class="aqi-display" style="background-color: {currentLevel.color};">
-  AQI: {currentLevel.label}
+<div class="aqi-display">
+  <div class="aqi-header">
+    <div class="aqi-icon">🌬️</div>
+    <div class="aqi-title">Air Quality</div>
+  </div>
+  <div class="aqi-value" style="color: {currentLevel.color};">{aqi}</div>
+  <div class="aqi-label" style="color: {currentLevel.color};">{currentLevel.label}</div>
 </div>
 
 <style>
   .aqi-display {
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 1rem;
     color: white;
-    font-weight: bold;
-    margin-top: 1rem;
     text-align: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .aqi-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .aqi-icon {
+    font-size: 1rem;
+  }
+
+  .aqi-title {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+  }
+
+  .aqi-value {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+  }
+
+  .aqi-label {
+    font-size: 0.85rem;
+    font-weight: 500;
   }
 </style>
