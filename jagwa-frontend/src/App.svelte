@@ -12,15 +12,13 @@
     resetWeatherState
   } from './lib/stores/weatherStore';
   import LocationSearch from './components/LocationSearch.svelte';
-  import WeatherDisplay from './components/WeatherDisplay.svelte';
   import UnitToggle from './components/UnitToggle.svelte';
+  import WeatherCarousel from './components/WeatherCarousel.svelte';
   import PrecipitationChart from './components/PrecipitationChart.svelte';
   import PrecipitationAmountChart from './components/PrecipitationAmountChart.svelte';
   import AQIDisplay from './components/AQIDisplay.svelte';
   import UVIndexDisplay from './components/UVIndexDisplay.svelte';
-  import DailyForecastCarousel from './components/DailyForecastCarousel.svelte';
   const DEFAULT_LOCATION = 'Seoul';
-  let selectedDailyIndex = 0;
 
   async function handleSearch(location: string) {
     const normalizedLocation = location.trim();
@@ -50,7 +48,6 @@
         $aqiValue = aqi;
         $uvIndex = uvi;
         $dailyForecasts = daily;
-        selectedDailyIndex = 0;
       } else {
         $aqiValue = null;
         $uvIndex = null;
@@ -89,7 +86,7 @@
 
   {#if !$isLoading && $weatherData}
     <section class="content">
-      <WeatherDisplay />
+      <WeatherCarousel />
 
       {#if $aqiValue !== null || $uvIndex !== null}
         <section class="metrics" aria-label="Environmental metrics">
@@ -99,13 +96,6 @@
           {#if $uvIndex !== null}
             <UVIndexDisplay uvi={$uvIndex} />
           {/if}
-        </section>
-      {/if}
-
-      {#if $dailyForecasts.length > 0}
-        <section class="daily-forecast" aria-label="Upcoming daily forecast">
-          <h2>5-Day Outlook</h2>
-          <DailyForecastCarousel bind:selectedIndex={selectedDailyIndex} />
         </section>
       {/if}
 
@@ -166,19 +156,7 @@
     background: rgba(255, 255, 255, 0.05);
   }
 
-  .daily-forecast {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
-  }
 
-  .daily-forecast h2 {
-    margin: 0 0 0.75rem 0;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
 
   .charts {
     display: grid;
@@ -244,8 +222,6 @@
       padding: 1.5rem;
     }
     
-    .daily-forecast {
-      padding: 1.5rem;
-    }
+
   }
 </style>
